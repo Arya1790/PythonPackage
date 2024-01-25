@@ -1,2 +1,2 @@
-def test_empyty():
+def test_empty():
     assert True
