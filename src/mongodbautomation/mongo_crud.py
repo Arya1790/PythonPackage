@@ -4,6 +4,7 @@ import pandas as pd
 from pymongo.mongo_client import MongoClient
 import json
 from ensure import ensure_annotations
+import certifi
 
 class mongo_operation:
     __collection=None # here i have created a private/protected variable
@@ -15,7 +16,7 @@ class mongo_operation:
         self.collection_name=collection_name
        
     def create_mongo_client(self,collection=None):
-        client=MongoClient(self.client_url)
+        client=MongoClient(self.client_url, tlsCAFile=certifi.where())
         return client
     
     def create_database(self,collection=None):
@@ -60,3 +61,5 @@ class mongo_operation:
         datajson=json.loads(dataframe.to_json(orient='record'))
         collection=self.create_collection()
         collection.insert_many(datajson)
+        
+        #find , update, delete cassandra 
